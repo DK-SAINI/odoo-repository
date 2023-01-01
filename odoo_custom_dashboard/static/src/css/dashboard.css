@@ -1,0 +1,44 @@
+.card {
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    /*border:;*/
+    margin-bottom: 30px;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+/*icon*/
+.icon-size {
+    font-size: 35px;
+}
+
+.pointer:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    color: blue;
+}
+
+select {
+
+  /* styling */
+  background-color: white;
+  border-radius: 6px;
+  border: thin solid #5a4f7f;
+  display: inline-block;
+  line-height: 1.5em;
+  padding: 0.3em 0.3em 0.3em 0.3em;
+
+  /* reset */
+
+  margin: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  /*-webkit-appearance: none;*/
+  -moz-appearance: none;
+}
+
+html .o_web_client>.o_action_manager {
+    overflow: auto !important;
+}

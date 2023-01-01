@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<template id="template" xml:space="preserve">
+    <t t-name="OdooCustomDashboard">
+
+        <div class="container-fluid" style="background-color: white;">
+
+            <!-- First row -->
+            <div class="row mt-3">
+                <div class="col-12">
+                  <div class="card">
+                      <div class="card-body">
+                          <h1 style="font-family:'FontAwesome';">Dashboard</h1>
+                      </div>
+                  </div>
+                </div>
+            </div>
+
+            <!-- Second row -->
+            <div class="row">
+
+            <!-- First Colum -->
+            <div class="col-xl-3 col-sm-6 col-12">
+              <div class="card">
+                <div class="card-content">
+                  <div class="card-body">
+                    <div class="media d-flex">
+                      <div class="align-self-center">
+                        <i class="icon-chart float-left icon-size text-primary"></i>
+                        <span class="icon"></span>
+
+                      </div>
+                      <div class="media-body text-right">
+                        <h3 class="text-primary">
+                          <t t-esc='widget.total_order'/>
+                        </h3>
+                        <!-- class="pointer" for link style -->
+                        <span id="jumb_on_sale_order_page"><b># Total Orders</b></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Second Colum -->
+            <div class="col-xl-3 col-sm-6 col-12">
+              <div class="card">
+                <div class="card-content">
+                  <div class="card-body">
+                    <div class="media d-flex">
+                      <div class="align-self-center">
+                        <i class="icon-graph float-left icon-size text-warning"></i>
+                      </div>
+                      <div class="media-body text-right">
+                        <h3 class="text-warning">
+                          <t t-esc="widget.total_amount"/>
+                        </h3>
+                        <span id="jumb_on_sale_order_pivot_view"><b># Total Sales</b></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Third Column -->
+            <div class="col-xl-3 col-sm-6 col-12">
+              <div class="card">
+                <div class="card-content">
+                  <div class="card-body">
+                    <div class="media d-flex">
+                      <div class="media-body text-left">
+                        <h3 class="text-success">
+                          <t t-esc="widget.total_customer"/>
+                        </h3>
+                        <span><b># Total Customers</b></span>
+                      </div>
+                      <div class="align-self-center">
+                        <i class="icon-user float-right icon-size text-success"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Forth Column -->
+            <div class="col-xl-3 col-sm-6 col-12">
+              <div class="card">
+                <div class="card-content">
+                  <div class="card-body">
+                    <div class="media d-flex">
+                      <div class="media-body text-left">
+                        <h3 class="text-danger">
+                          <t t-esc="widget.total_product"/>
+                        </h3>
+                        <span><b># Total Products</b></span>
+                      </div>
+                      <div class="align-self-center">
+                        <i class="icon-rocket float-right icon-size text-danger"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+
+            <!-- New Row Added For Sales Total -->
+            <div class="row">
+
+                <!-- Sales for week, month and year.  -->
+                <div class="col-md-3" id="col-graph">
+                  <div class="card">
+                      <div class="card-header" style="padding: 17px 1.5rem !important; display: flex !IMPORTANT; justify-content: space-between; align-items: center; background-color:white">
+                          <div class="card-title" style="font-size:1em; margin:0">
+
+                            <h5 class="custom-h3 text-primary">
+                              <b>Total Sales</b>
+                            </h5>
+
+                          </div>
+                          <div class="card-tools">
+
+                            <select id="sale_total_options">
+                                <option value="this_week">This Week</option>
+                                <option value="this_month">This Month</option>
+                                <option value="this_year">This Year</option>
+                            </select>
+                          </div>
+                      </div>
+                      <div class="card-body">
+                          <div class="media d-flex">
+                            <div class="align-self-center">
+                              <span><b># Total Sales</b></span>
+                            </div>
+                            <div class="media-body text-right">
+                                <!-- append sale total -->
+                                <h5 class="text-primary">
+                                    <span id="total_sales"></span>
+                                </h5>
+
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+
+                <!-- Amount due for week, month and year. -->
+                <div class="col-md-3" id="col-graph">
+                  <div class="card">
+                      <div class="card-header" style="padding: 17px 1.5rem !important; display: flex !IMPORTANT; justify-content: space-between; align-items: center; background-color:white">
+                          <div class="card-title" style="font-size:1em; margin:0">
+
+                            <h5 class="custom-h3 text-warning">
+                              <b>Amount Due</b>
+                            </h5>
+
+                          </div>
+                          <div class="card-tools">
+
+                            <select id="amount_due_options">
+                                <option value="due_this_week">This Week</option>
+                                <option value="due_this_month">This Month</option>
+                                <option value="due_this_year">This Year</option>
+                            </select>
+                          </div>
+                      </div>
+                      <div class="card-body">
+                          <div class="media d-flex">
+                            <div class="align-self-center">
+                              <span><b># Amount Due</b></span>
+                            </div>
+                            <div class="media-body text-right">
+                                <!-- append due amount -->
+                                <h5 class="text-warning">
+                                    <span id="due_amount"></span>
+                                </h5>
+
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+
+                 <!-- Amount deposit view for week, month and year. -->
+                <div class="col-md-3" id="col-graph">
+                  <div class="card">
+                      <div class="card-header" style="padding: 17px 1.5rem !important; display: flex !IMPORTANT; justify-content: space-between; align-items: center; background-color:white">
+                          <div class="card-title" style="font-size:1em; margin:0">
+
+                            <h5 class="custom-h3 text-success">
+                              <b>Amount Deposit</b>
+                            </h5>
+
+                          </div>
+                          <div class="card-tools">
+
+                            <select id="amount_deposit_options">
+                                <option value="deposit_this_week">This Week</option>
+                                <option value="deposit_this_month">This Month</option>
+                                <option value="deposit_this_year">This Year</option>
+                            </select>
+                          </div>
+                      </div>
+                      <div class="card-body">
+                          <div class="media d-flex">
+                            <div class="align-self-center">
+                              <span><b># Amount Deposit</b></span>
+                            </div>
+                            <div class="media-body text-right">
+                                <!-- append deposit amount -->
+                                <h5 class="text-success">
+                                    <span id="deposit_amount"></span>
+                                </h5>
+
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+
+            </div>
+
+
+            <!-- Third row -->
+            <div class="row">
+                <div class="col-md-6" id="col-graph">
+                      <div class="card">
+                        <div class="card-body mt-3" id="in_ex_body_hide">
+                           <div class="row">
+                              <div class="col-md-12">
+                                <div class="chart">
+                                  <canvas class="canvas_1"></canvas>
+                                </div>
+                              </div>
+                           </div>
+                        </div>
+                      </div>
+                  </div>
+
+                  <div class="col-md-6" id="col-graph">
+                      <div class="card">
+                        <div class="card-body mt-3" id="in_ex_body_hide">
+                           <div class="row">
+                              <div class="col-md-12">
+                                <div class="chart">
+                                  <canvas class="canvas_2"></canvas>
+                                </div>
+                              </div>
+                           </div>
+                        </div>
+                      </div>
+                  </div>
+            </div>
+
+            <!-- Fourth Row -->
+            <!-- <div class="row"> -->
+                  <!-- Top 10 Sale Orders -->
+                  <!-- <div class="col-md-6" id="col-graph">
+                      <div class="card">
+                          <div class="card-header" style="padding: 17px 1.5rem !important; display: flex !IMPORTANT; justify-content: space-between; align-items: center; background-color:white">
+                              <div class="card-title" style="font-size:1em; margin:0">
+
+                                <h3 class="custom-h3">
+                                  <b>TOP 10 SALE ORDERS</b>
+                                </h3>
+
+                              </div>
+                              <div class="card-tools">
+                                <select id="sale_order">
+                                    <option value="daily_sales">This Day</option>
+                                    <option value="monthly_sales">This Month</option>
+                                    <option value="year_sales">This Year</option>
+                                </select>
+                              </div>
+                          </div>
+                          <div class="card-body p-0" style="height: 287px; overflow-y:auto;">
+                               <div class="row">
+                                  <div class="col-md-12 table-responsive" style="text-align: center;">
+                                        <table id="sale_data" class="table">
+                                            <tr>
+                                              <th>#</th>
+                                              <th>Sale Order</th>
+                                              <th>Amount</th>
+                                            </tr>
+                                        </table>
+                                  </div>
+                               </div>
+                          </div>
+                      </div>
+                  </div>
+                -->
+                  <!-- <div class="col-md-6" id="col-graph">
+                      <div class="card">
+                          <div class="card-header" style="padding: 17px 1.5rem !important; display: flex !IMPORTANT; justify-content: space-between; align-items: center;background-color:white">
+                              <div class="card-title" style="font-size:1em; margin:0">
+
+                                <h3 class="custom-h3">
+                                  <b>Customized Accoroding To You...!</b>
+                                </h3>
+
+                              </div>
+                              <div class="card-tools">
+                                <select id="select1">
+                                    <option value="xx1"> Select </option>
+                                </select>
+                              </div>
+                          </div>
+                          <div class="card-body p-0" style="height: 287px;overflow-y:auto;">
+                               <div class="row">
+                                  <div class="col-md-12 table-responsive"  style="text-align: center;">
+                                        <table class="table">
+                                            <tr>
+                                              <th>#</th>
+                                              <th>Name</th>
+                                              <th>Mobile NO</th>
+                                            </tr>
+                                            <tr>
+                                              <th>1</th>
+                                              <td>Dheeraj Kumar</td>
+                                              <td>+91 9509925997</td>
+                                            </tr>
+                                            <tr>
+                                              <th>2</th>
+                                              <td>Ajay Kumar</td>
+                                              <td>+91 9509925987</td>
+                                            </tr>
+                                        </table>
+                                  </div>
+                               </div>
+                          </div>
+                      </div>
+                  </div> -->
+            <!-- </div> -->
+
+        <!-- End container -->
+        </div>
+
+    </t>
+</template>
