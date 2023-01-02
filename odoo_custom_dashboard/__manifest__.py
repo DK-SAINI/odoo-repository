@@ -24,6 +24,7 @@
         ],
         "web.assets_qweb": [
             "odoo_custom_dashboard/static/src/xml/dashboard_template.xml",
+            "GGGG"
         ],
     },
     "license": "LGPL-3",
