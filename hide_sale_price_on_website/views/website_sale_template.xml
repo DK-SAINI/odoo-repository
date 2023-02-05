@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+        <!-- Inherit product_price template-->
+        <template id="product_price_inherit" inherit_id="website_sale.product_price">
+            <xpath expr="//div[@itemprop='offers']" position="attributes">
+                <attribute name='t-if'>
+                    not product.hide_sale_price
+                </attribute>
+            </xpath>
+        </template>
+
+        <!-- Inherit product_item template-->
+        <template id="products_item_inherit" inherit_id="website_sale.products_item">
+            <xpath expr="//div[@itemprop='offers']" position="attributes">
+                <attribute name='t-if'>
+                    not product.hide_sale_price
+                </attribute>
+            </xpath>
+        </template>
+    </data>
+</odoo>
