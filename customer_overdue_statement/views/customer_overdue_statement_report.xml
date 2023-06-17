@@ -1,0 +1,30 @@
+<odoo>
+    <data>
+
+        <template id="report_customer_overdue_statement">
+            <!-- Re-browse of the record with the partner lang -->
+            <!-- <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)" /> -->
+            <!-- <t t-call="web.external_layout"> -->
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <h1>Hello</h1>
+                </div>
+            <!-- </t> -->
+        </template>
+
+
+
+        <!-- QWeb Reports -->
+        <record id="report_customer_overdue_statement_action" model="ir.actions.report">
+            <field name="name">Customer Overdue Statement</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">(object._get_report_base_filename())</field>
+            <field name="report_name">customer_overdue_statement.report_customer_overdue_statement</field>
+            <field name="report_file">customer_overdue_statement.report_customer_overdue_statement</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_type">report</field>
+        </record>
+
+    </data>
+</odoo>

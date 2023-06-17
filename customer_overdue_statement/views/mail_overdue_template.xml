@@ -1,0 +1,60 @@
+<odoo>
+    <data>
+
+        <!-- Mail Template for Overdue Payment -->
+        <record id="mail_template_overdue_payment" model="mail.template">
+            <field name="name">Overdue Payment Reminder</field>
+            <field name="subject">Payment Reminder: Invoice Overdue</field>
+            <field name="email_from">noreply@example.com</field>
+            <field name="email_to">{{ object.id }}</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="lang">{{ object.lang }}</field>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html">
+                <![CDATA[
+                    <div>
+                        <p>Dear <t t-out="object.name">,</p>
+                        <p>This is a reminder that your payment for the following invoice(s) is overdue:</p>
+
+                        <table style="border-collapse: collapse;">
+                            <thead>
+                                <tr style="border: 1px solid black;">
+                                    <th  style="border: 1px solid black; padding: 5px;">Invoice Number</th>
+                                    <th  style="border: 1px solid black; padding: 5px;">Invoice Date</th>
+                                    <th  style="border: 1px solid black; padding: 5px;">Due Date</th>
+                                    <th  style="border: 1px solid black; padding: 5px;">Amount Due</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="total_amount_due" t-value="0.0"/>
+                                <t t-foreach="ctx['account_obj']" t-as="invoice">
+                                    <tr style="border: 1px solid black;">
+                                        <td  style="border: 1px solid black; padding: 5px;">
+                                            <span t-field="invoice.name"/>
+                                        </td>
+                                        <td  style="border: 1px solid black; padding: 5px;">
+                                            <span t-field="invoice.invoice_date"/>
+                                        </td>
+                                        <td  style="border: 1px solid black; padding: 5px;">
+                                            <span t-field="invoice.invoice_date_due"/>
+                                        </td>
+                                        <td  style="border: 1px solid black; padding: 5px;">
+                                            <span t-esc="invoice.amount_residual"/>
+                                        </td>
+                                    </tr>
+                                    <t t-set="total_amount_due" t-value="total_amount_due + invoice.amount_residual"/>
+                                </t>
+                            </tbody>
+                        </table>
+
+                    <p>Please settle the outstanding amount of <strong><t t-out="total_amount_due"></strong> as soon as possible to avoid any inconvenience.</p>
+                    <p>Thank you for your attention.</p>
+                    <p>Best regards,</p>
+                    <p>Your Company Name</p>
+                </div>
+                ]]>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,33 @@
+<!-- customer_overdue_statement_views.xml -->
+
+<odoo>
+    <data>
+        <!-- Customer Overdue Statement Wizard View -->
+        <record id="view_customer_overdue_statement_wizard" model="ir.ui.view">
+            <field name="name">customer.overdue.statement.wizard.form</field>
+            <field name="model">customer.overdue.statement.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Customer Overdue Statement">
+                    <sheet>
+                        Send customer overdue statement using Send Statement button
+                        <footer>
+                            <button string="Send Statement" name="generate_overdue_statement" type="object" class="btn-primary"/>
+                            <button string="Cancel" class="btn-secondary" special="cancel"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action Window for Customer Overdue Statement Wizard -->
+        <record id="action_customer_overdue_statement_wizard" model="ir.actions.act_window">
+            <field name="name">Customer Overdue Statement</field>
+            <field name="res_model">customer.overdue.statement.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="base.model_res_partner" />
+            <field name="binding_view_types">list</field>
+        </record>
+
+    </data>
+</odoo>
