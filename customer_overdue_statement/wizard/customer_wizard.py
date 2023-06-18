@@ -19,6 +19,8 @@ class CustomerOverdueStatementWizard(models.TransientModel):
 
         for partner_id in partner:
             partner = self.env["res.partner"].search([("id", "=", partner_id)])
+
+            # get partner overdue payment record
             account_obj = self.env["account.move"].search(
                 [
                     ("partner_id", "=", partner_id),
@@ -30,19 +32,19 @@ class CustomerOverdueStatementWizard(models.TransientModel):
             data = {"account_obj": account_obj}
 
             if account_obj:
+                # genrate overdue pdf for attachment with email
                 report = self.env.ref(
                     "customer_overdue_statement.report_customer_overdue_statement_action"
-                )._render_qweb_pdf(self.id)[0]
+                )._render_qweb_pdf(account_obj.ids)[0]
 
-                print("@@@@@@@@@@@@@@@@@@@@", report)
-                # attachment_data = {
-                #     "name": "Report Name.pdf",
-                #     "type": "binary",
-                #     "datas": base64.b64encode(report),
-                # }
+                attachment = self.env["ir.attachment"].create(
+                    {
+                        "name": f"{partner.name}.pdf",
+                        "type": "binary",
+                        "datas": base64.b64encode(report),
+                    }
+                )
 
-                # template_id.with_context(data).send_mail(
-                #     partner.id, attachment_ids=[(0, 0, attachment_data)]
-                # )
+                template_id.attachment_ids = [(6, 0, [attachment.id])]
 
-        # template_id.send_mail(self.partner_id.id, force_send=True, attachment_ids=self.attachment_ids.ids)
+                template_id.with_context(data).send_mail(partner.id, force_send=True)

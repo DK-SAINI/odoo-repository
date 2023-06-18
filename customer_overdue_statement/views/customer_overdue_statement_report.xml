@@ -3,15 +3,58 @@
 
         <template id="report_customer_overdue_statement">
             <!-- Re-browse of the record with the partner lang -->
-            <!-- <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)" /> -->
-            <!-- <t t-call="web.external_layout"> -->
+            <t t-call="web.external_layout">
                 <div class="page">
                     <div class="oe_structure"/>
-                    <h1>Hello</h1>
+                    <div>
+                        <p>This is a reminder that your payment for the following invoice(s) is overdue:</p>
+
+                        <table style="border-collapse: collapse;">
+                            <thead>
+                                <tr style="border: 1px solid black;">
+                                    <th  style="border: 1px solid black; padding: 5px;">Invoice Number</th>
+                                    <th  style="border: 1px solid black; padding: 5px;">Invoice Date</th>
+                                    <th  style="border: 1px solid black; padding: 5px;">Due Date</th>
+                                    <th  style="border: 1px solid black; padding: 5px;">Amount Due</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="total_amount_due" t-value="0.0"/>
+                                <t t-foreach="docs" t-as="invoice">
+                                    <tr style="border: 1px solid black;">
+                                        <td  style="border: 1px solid black; padding: 5px;">
+                                            <span t-field="invoice.name"/>
+                                        </td>
+                                        <td  style="border: 1px solid black; padding: 5px;">
+                                            <span t-field="invoice.invoice_date"/>
+                                        </td>
+                                        <td  style="border: 1px solid black; padding: 5px;">
+                                            <span t-field="invoice.invoice_date_due"/>
+                                        </td>
+                                        <td  style="border: 1px solid black; padding: 5px;">
+                                            <span t-esc="invoice.amount_residual"/>
+                                        </td>
+                                    </tr>
+                                    <t t-set="total_amount_due" t-value="total_amount_due + invoice.amount_residual"/>
+                                </t>
+                            </tbody>
+                        </table>
+<!-- <p>Please settle the outstanding amount of <strong><t t-out="total_amount_due"></strong> as soon as possible to avoid any inconvenience.</p>
+                        <p>Thank you for your attention.</p>
+                        <p>Best regards,</p>
+                        <p>Your Company Name</p> -->
+                    </div>
                 </div>
-            <!-- </t> -->
+            </t>
         </template>
 
+
+        <!-- Main template -->
+        <template id="report_overdue_statement">
+            <t t-call="web.html_container">
+                <t t-call="customer_overdue_statement.report_customer_overdue_statement"/>
+            </t>
+        </template>
 
 
         <!-- QWeb Reports -->
@@ -20,9 +63,9 @@
             <field name="model">account.move</field>
             <field name="report_type">qweb-pdf</field>
             <field name="print_report_name">(object._get_report_base_filename())</field>
-            <field name="report_name">customer_overdue_statement.report_customer_overdue_statement</field>
-            <field name="report_file">customer_overdue_statement.report_customer_overdue_statement</field>
-            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="report_name">customer_overdue_statement.report_overdue_statement</field>
+            <field name="report_file">customer_overdue_statement.report_overdue_statement</field>
+            <!-- <field name="binding_model_id" ref="account.model_account_move"/> -->
             <field name="binding_type">report</field>
         </record>
 
