@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="v16_systray_icon.SaleOrderSystray" owl="1">
+        <div>
+            <div class="o_SaleMenuView dropdown" t-on-click="openSaleOrders">
+                <a title="Sale Order" href="#" role="button">
+                    <i class="fa fa-rocket" style="font-size: medium;" role="img" 
+                        aria-label="Sale Order">        
+                    </i>
+                </a>
+            </div>
+        </div>
+    </t>
+</templates>
